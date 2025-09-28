@@ -8,15 +8,22 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1 class="main-title">Jane Doe <span class="emoji">✨</span></h1>
-            <p class="subtitle">building cool stuff for the web <span class="emoji">🚀</span></p>
+        <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:32px;">
+            <div>
+                <h1 class="main-title">Satwik <span class="emoji">🙄</span></h1>
+                <p class="subtitle">building cool stuff for the web <span class="emoji">🚀</span></p>
+            </div>
+            <div class="resume-mini-card circle-card" id="resumeMiniCardHeader">
+                <div class="mini-card-front">
+                    <span class="emoji" style="font-size:2em;">📄</span>
+                </div>
+            </div>
         </div>
     </header>
     <section id="about" class="fade-in">
         <div class="container">
-            <h2>About <span class="emoji">👾</span></h2>
-            <p>Hey! I'm Jane, a Gen Z dev who vibes with pastel gradients, chill code, and making things move. Let's make the web fun again. <span class="emoji">🦄</span></p>
+            <h2>About <span class="emoji">😖</span></h2>
+            <p>Hey! I'm Satwik, a beginner who might be average at a lot of things but good at none and my USP is I am tall ^_~. I love sketching <span class="emoji">✏️</span> and a little bit of photography <span class="emoji">📷</span>. Let's make the web fun again. <span class="emoji">🦄</span></p>
         </div>
     </section>
     <section id="projects" class="fade-in">
@@ -34,6 +41,17 @@
             </div>
         </div>
     </section>
+    <div class="resume-modal" id="resumeModal">
+        <div class="modal-content animate-modal" id="modalContent">
+            <h3>Satwik Malik</h3>
+            <p>Email: satwik7malik@gmail.com</p>
+            <p>Education: B.Tech in Computer Science, XYZ University</p>
+            <p>Skills: JavaScript, Python, Web Dev, UI/UX</p>
+            <p>Experience: Intern @ ABC Corp, Freelance Web Projects</p>
+            <!-- Click anywhere on modal-content to open full resume -->
+        </div>
+    </div>
+    </section>
     <section id="contact" class="fade-in">
         <div class="container">
             <h2>Contact <span class="emoji">📬</span></h2>
@@ -43,13 +61,60 @@
                 <textarea placeholder="Drop a message or meme" required></textarea>
                 <button type="submit" class="pill-btn">Send <span class="emoji">👉</span></button>
             </form>
+            <div class="contact-email">
+                <p style="margin-top:2em;font-size:1.1em;color:#6c63ff;">Or just email me: <a href="mailto:satwik7malik@gmail.com" style="color:#ff6b81;font-weight:700;">satwik7malik@gmail.com</a></p>
+            </div>
         </div>
     </section>
     <footer>
         <div class="container">
-            <p>made with <span class="heart">&#10084;</span> by Jane Doe <span class="emoji">🦋</span></p>
+            <p>made with <span class="heart">&#10084;</span> by Satwik <span class="emoji">🦋</span></p>
         </div>
     </footer>
     <script src="script.js"></script>
+    <script>
+    // Mini resume card modal logic for both cards
+    const miniCardHeader = document.getElementById('resumeMiniCardHeader');
+    const modal = document.getElementById('resumeModal');
+    const modalContent = document.getElementById('modalContent');
+    let modalTimeout;
+    function showModal() {
+        clearTimeout(modalTimeout);
+        if (modal.style.display !== 'flex') {
+            modal.style.display = 'flex';
+            modalContent.classList.add('animate-modal');
+            setTimeout(() => {
+                modalContent.classList.remove('animate-modal');
+            }, 400);
+        }
+    }
+    function hideModal() {
+        modalTimeout = setTimeout(() => {
+            modal.style.display = 'none';
+        }, 200);
+    }
+    miniCardHeader.addEventListener('mouseenter', showModal);
+    miniCardHeader.addEventListener('mouseleave', hideModal);
+    modal.addEventListener('mouseenter', () => {
+        clearTimeout(modalTimeout);
+    });
+    modal.addEventListener('mouseleave', hideModal);
+    modalContent.addEventListener('click', () => {
+        window.location.href = 'resume/resume-card.html';
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modal.style.display = 'none';
+        }
+    });
+    document.addEventListener('mousedown', (e) => {
+        const isModal = modal.contains(e.target);
+        const isMiniCard = miniCardHeader.contains(e.target);
+        if (modal.style.display === 'flex' && !isModal && !isMiniCard) {
+            modal.style.display = 'none';
+            window.location.href = 'index.html';
+        }
+    });
+    </script>
 </body>
 </html>
